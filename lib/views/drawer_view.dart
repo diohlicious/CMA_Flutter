@@ -1,66 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/app/route.dart';
+import './home_view.dart';
+import './task_view.dart';
+import './mitra_view.dart';
 
-class Navigation extends StatelessWidget {
+class DrawerItem {
+  String title;
+  IconData icon;
+
+  DrawerItem(this.title, this.icon);
+}
+
+class Navigation extends StatefulWidget {
+  final drawerItems = [
+    DrawerItem("Home", Icons.home),
+    DrawerItem("Task", Icons.article_outlined),
+    DrawerItem("Mitra", Icons.article_outlined)
+  ];
+
+  @override
+  _NavigationState createState() => _NavigationState();
+}
+
+class _NavigationState extends State<Navigation> {
+  int _selectedDrawerIndex = 0;
+
+  _getDrawerItemWidget(int pos) {
+    switch (pos) {
+      case 0:
+        return HomeView();
+      case 1:
+        return TaskView();
+      case 2:
+        return MitraView();
+      default:
+        return Text("Error");
+    }
+  }
+
+  _onSelectItem(int index) {
+    setState(() => _selectedDrawerIndex = index);
+    Navigator.of(context).pop(); // close the drawer
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          _createHeader(),
-          _createDrawerItem(
-              icon: Icons.home,
-              text: 'Home',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.home)),
-          _createDrawerItem(
-              icon: Icons.article_outlined,
-              text: 'Tasks',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.tasks)),
-          _createDrawerItem(
-              icon: Icons.article_outlined,
-              text: 'Mitra',
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, Routes.mitra)),
-        ],
+    var drawerOptions = <Widget>[];
+    for (var i = 0; i < widget.drawerItems.length; i++) {
+      var d = widget.drawerItems[i];
+      drawerOptions.add(ListTile(
+        leading: Icon(d.icon),
+        title: Text(d.title),
+        selected: i == _selectedDrawerIndex,
+        onTap: () => _onSelectItem(i),
+      ));
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        // here we display the title corresponding to the fragment
+        // you can instead choose to have a static title
+        title: Text(widget.drawerItems[_selectedDrawerIndex].title),
       ),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('assets/images/drawer_header.png'))),
+                accountName: Text('CMA Demo',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500)),
+                accountEmail: null),
+            Column(children: drawerOptions)
+          ],
+        ),
+      ),
+      body: _getDrawerItemWidget(_selectedDrawerIndex),
     );
   }
-}
-
-Widget _createHeader() {
-  return DrawerHeader(
-      margin: EdgeInsets.zero,
-      padding: EdgeInsets.zero,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage('assets/images/drawer_header.png'))),
-      child: Stack(children: <Widget>[
-        Positioned(
-            bottom: 12.0,
-            left: 16.0,
-            child: Text('CMA Demo',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w500))),
-      ]));
-}
-
-Widget _createDrawerItem(
-    {IconData icon, String text, GestureTapCallback onTap}) {
-  return ListTile(
-    title: Row(
-      children: <Widget>[
-        Icon(icon),
-        Padding(
-          padding: EdgeInsets.only(left: 8.0),
-          child: Text(text),
-        )
-      ],
-    ),
-    onTap: onTap,
-  );
 }
