@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/views/drawer_view.dart';
 import 'mitra_list_view.dart';
 import 'mitra_assign_view.dart';
 
@@ -8,19 +7,13 @@ class MitraView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Mitra"),
-      ),
-      drawer: Navigation(),
-      body: DefaultTabController(
+    return Container(
+      child: DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 43,
             backgroundColor: Colors.blue[400],
-            actions: <Widget>[],
             elevation: 0,
             title: TabBar(
               tabs: [
@@ -32,12 +25,13 @@ class MitraView extends StatelessWidget {
             ),
           ),
           body: TabBarView(
-              children: <Widget> [
+            children: <Widget>[
               MitraList(),
               MitraAssign(),
-        ],
+            ],
+          ),
+        ),
       ),
-    ),)
     );
   }
 }

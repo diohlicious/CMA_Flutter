@@ -1,28 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
-import 'drawer_view.dart';
 
-class HomeView extends StatelessWidget {
-  static const String routeName = '/home';
+class FavItem {
+  String _img;
+  String _title;
+
+  FavItem(this._img, this._title);
+}
+
+class HomeView extends StatefulWidget {
+  final favItem = [
+    FavItem('assets/images/ic_attendance.png', 'Attendance'),
+    FavItem('assets/images/ic_route.png', 'Route'),
+    FavItem('assets/images/ic_mitra.png', 'Mitra'),
+    FavItem('assets/images/ic_add.png', 'Add'),
+    FavItem('assets/images/ic_appointment.png', 'Appointment'),
+    FavItem('assets/images/ic_recovery.png', 'Recovery'),
+    FavItem('assets/images/ic_archive.png', 'Archive'),
+    FavItem('assets/images/ic_find.png', 'Find'),
+  ];
 
   @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
+    var _favColumn = <Widget>[];
+    var _favRow = <Widget>[];
+    var chunks = [];
+    for (var i = 0; i < widget.favItem.length; i += 4) {
+      chunks.add(widget.favItem.sublist(
+          i, i + 4 > widget.favItem.length ? widget.favItem.length : i + 4));
+    }
+    for (var i = 0; i < chunks.length; i++) {
+      for (var j = 0; j < chunks[i].length; j++) {
+        var d = chunks[i][j];
+        _favRow.add(
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () => print("tapped"),
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: [
+                      Image(image: AssetImage(d._img)),
+                      Text(d._title, style: TextStyle(color: Colors.blue))
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+      _favColumn.add(Row(
+        children: _favRow,
+      ));
+      _favRow = [];
+    }
+
+    return Container(
+      child: Column(
+        children: [
+          Wrap(
+            children: [_cardHeader()],
+          ),
+          Column(
+            children: _favColumn,
+          ),
+        ],
       ),
-      drawer: Navigation(),
-      body: Wrap(
-        children: [_cardHeader()],
-      )/*Container(
-          height: double.infinity,
-          width: double.infinity,
-          child: Column(children: [
-            Wrap(children: [_cardHeader()]),
-            Wrap(
-              children: [_favorite()],
-            )
-          ])),*/
     );
   }
 }
@@ -33,7 +86,6 @@ Widget _cardHeader() {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),
-    elevation: 5,
     child: Container(
       margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
       decoration: BoxDecoration(
@@ -123,29 +175,5 @@ Widget _itemHeader(String _title, String _img, String _pct, String _text) {
         ]),
       ),
     ),
-  );
-}
-
-//-------------------------------------------------Favorite
-Widget _favorite() {
-  return Row(
-    children: [
-      Container(
-        child: ConstrainedBox(
-          constraints: BoxConstraints.expand(),
-          child: FlatButton(
-              padding: EdgeInsets.all(0.0),
-              child: Image.asset('assets/images/ic_attendance.png')),
-        ),
-      ),
-      Container(
-        child: ConstrainedBox(
-          constraints: BoxConstraints.expand(),
-          child: FlatButton(
-              padding: EdgeInsets.all(0.0),
-              child: Image.asset('assets/images/ic_route.png')),
-        ),
-      ),
-    ],
   );
 }
