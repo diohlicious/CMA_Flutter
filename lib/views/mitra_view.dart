@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/menu/navigation.dart';
-import './mitra_list.dart' as list;
-import './mitra_assign.dart' as assign;
+import 'package:startup_namer/views/drawer_view.dart';
+import 'mitra_list_view.dart';
+import 'mitra_assign_view.dart';
 
-class MitraPage extends StatelessWidget {
+class MitraView extends StatelessWidget {
   static const String routeName = '/mitra';
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Mitra"),
@@ -18,7 +19,7 @@ class MitraPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 43,
-            backgroundColor: Colors.green[400],
+            backgroundColor: Colors.blue[400],
             actions: <Widget>[],
             elevation: 0,
             title: TabBar(
@@ -32,8 +33,8 @@ class MitraPage extends StatelessWidget {
           ),
           body: TabBarView(
               children: <Widget> [
-              list.MitraList(),
-              assign.MitraAssign(),
+              MitraList(),
+              MitraAssign(),
         ],
       ),
     ),)

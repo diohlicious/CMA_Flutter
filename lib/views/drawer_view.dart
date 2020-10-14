@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:startup_namer/route/route.dart';
+import 'package:startup_namer/app/route.dart';
 
 class Navigation extends StatelessWidget {
   @override
@@ -36,12 +36,12 @@ Widget _createHeader() {
       padding: EdgeInsets.zero,
       decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage('assets/drawer_header.png'))),
+              fit: BoxFit.fill, image: AssetImage('assets/images/drawer_header.png'))),
       child: Stack(children: <Widget>[
         Positioned(
             bottom: 12.0,
             left: 16.0,
-            child: Text("CMA Demo",
+            child: Text('CMA Demo',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,

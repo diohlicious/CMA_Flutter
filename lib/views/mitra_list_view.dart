@@ -12,7 +12,7 @@ class MitraList extends StatelessWidget {
             ),
           ),
           toolbarHeight: 40,
-          backgroundColor: Colors.green[300],
+          backgroundColor: Colors.blue[300],
         ),
         body: Center(child: Text("List Mitra")));
   }

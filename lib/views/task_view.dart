@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './navigation.dart';
+import 'drawer_view.dart';
 
-class TaskPage extends StatelessWidget {
+class TaskView extends StatelessWidget {
   static const String routeName = '/tasks';
 
   @override
