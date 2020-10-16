@@ -7,11 +7,15 @@ class MitraView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: DefaultTabController(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Mitra"),
+      ),
+      body: DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 43,
             backgroundColor: Colors.blue[400],
             elevation: 0,

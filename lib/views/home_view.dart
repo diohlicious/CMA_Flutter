@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:startup_namer/app/route.dart';
 
 class FavItem {
   String _img;
   String _title;
+  String _onTap;
 
-  FavItem(this._img, this._title);
+  FavItem(this._img, this._title, this._onTap);
 }
 
 class HomeView extends StatefulWidget {
+  static const String routeName = '/home';
   final favItem = [
-    FavItem('assets/images/ic_attendance.png', 'Attendance'),
-    FavItem('assets/images/ic_route.png', 'Route'),
-    FavItem('assets/images/ic_mitra.png', 'Mitra'),
-    FavItem('assets/images/ic_add.png', 'Add'),
-    FavItem('assets/images/ic_appointment.png', 'Appointment'),
-    FavItem('assets/images/ic_recovery.png', 'Recovery'),
-    FavItem('assets/images/ic_archive.png', 'Archive'),
-    FavItem('assets/images/ic_find.png', 'Find'),
+    FavItem('assets/images/ic_attendance.png', 'Attendance', Routes.attendance),
+    FavItem('assets/images/ic_route.png', 'Route', null),
+    FavItem('assets/images/ic_mitra.png', 'Mitra', Routes.mitra),
+    FavItem('assets/images/ic_add.png', 'Add', null),
+    FavItem('assets/images/ic_appointment.png', 'Appointment', null),
+    FavItem('assets/images/ic_recovery.png', 'Recovery', null),
+    FavItem('assets/images/ic_archive.png', 'Archive', null),
+    FavItem('assets/images/ic_find.png', 'Find', null),
   ];
 
   @override
@@ -39,17 +42,25 @@ class _HomeViewState extends State<HomeView> {
           Expanded(
             flex: 1,
             child: GestureDetector(
-              onTap: () => print("tapped"),
+              onTap: () => Navigator.pushNamed(context, d._onTap),
               child: Card(
+                color: Colors.white,
                 elevation: 2,
                 shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.blue, width: 1),
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Container(
                   padding: EdgeInsets.all(5),
                   child: Column(
                     children: [
-                      Image(image: AssetImage(d._img)),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Image(
+                          image: AssetImage(d._img),
+                          height: 40,
+                        ),
+                      ),
                       Text(d._title, style: TextStyle(color: Colors.blue))
                     ],
                   ),
@@ -65,8 +76,8 @@ class _HomeViewState extends State<HomeView> {
       _favRow = [];
     }
 
-    return Container(
-      child: Column(
+    return Scaffold(
+      body: Column(
         children: [
           Wrap(
             children: [_cardHeader()],

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import './home_view.dart';
-import './task_view.dart';
-import './mitra_view.dart';
+import 'package:startup_namer/views/dashboard_view.dart';
+import 'package:startup_namer/views/setting_view.dart';
+import 'package:startup_namer/views/task_view.dart';
+
+import 'home_view.dart';
+import 'inbox_view.dart';
 
 class DrawerItem {
   String title;
@@ -14,7 +17,9 @@ class Navigation extends StatefulWidget {
   final drawerItems = [
     DrawerItem("Home", Icons.home),
     DrawerItem("Task", Icons.article_outlined),
-    DrawerItem("Mitra", Icons.article_outlined)
+    DrawerItem("Inbox", Icons.inbox),
+    DrawerItem("Dashboard", Icons.dashboard),
+    DrawerItem("Settings", Icons.settings)
   ];
 
   @override
@@ -31,7 +36,11 @@ class _NavigationState extends State<Navigation> {
       case 1:
         return TaskView();
       case 2:
-        return MitraView();
+        return InboxView();
+      case 3:
+        return DashboardView();
+      case 4:
+        return SettingView();
       default:
         return Text("Error");
     }
