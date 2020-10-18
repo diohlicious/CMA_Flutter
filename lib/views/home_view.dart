@@ -13,7 +13,7 @@ class HomeView extends StatefulWidget {
   static const String routeName = '/home';
   final favItem = [
     FavItem('assets/images/ic_attendance.png', 'Attendance', Routes.attendance),
-    FavItem('assets/images/ic_route.png', 'Route', null),
+    FavItem('assets/images/ic_route.png', 'Route', Routes.vroute),
     FavItem('assets/images/ic_mitra.png', 'Mitra', Routes.mitra),
     FavItem('assets/images/ic_add.png', 'Add', null),
     FavItem('assets/images/ic_appointment.png', 'Appointment', null),

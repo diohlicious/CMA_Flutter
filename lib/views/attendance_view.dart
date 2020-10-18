@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:startup_namer/repository/timer_service.dart';
 
 class AttendanceView extends StatefulWidget {
   static const String routeName = '/attendance';
@@ -14,6 +13,8 @@ class AttendanceView extends StatefulWidget {
 class _AttendanceViewState extends State<AttendanceView> {
   String _timeStr;
   Timer _timerNow;
+  bool _isButtonInDisabled;
+  bool _isButtonOutDisabled;
 
   //------------------------------------------Current Time-------------------------------------------
 
@@ -31,6 +32,8 @@ class _AttendanceViewState extends State<AttendanceView> {
 
   @override
   void initState() {
+    _isButtonInDisabled = true;
+    _isButtonOutDisabled = false;
     _timeStr = _formatDateTime(DateTime.now());
     _timerNow = Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     super.initState();
@@ -42,6 +45,7 @@ class _AttendanceViewState extends State<AttendanceView> {
     _timerSubscription.cancel();
     super.dispose();
   }
+
   //------------------------------------------Duration-------------------------------------------
   bool flag = true;
   Stream<int> _timerStream;
@@ -49,6 +53,7 @@ class _AttendanceViewState extends State<AttendanceView> {
   String _hoursStr = '00';
   String _minutesStr = '00';
   String _secondsStr = '00';
+
   Stream<int> stopWatchStream() {
     StreamController<int> streamController;
     Timer timer;
@@ -93,21 +98,26 @@ class _AttendanceViewState extends State<AttendanceView> {
   void _setClockIn() {
     setState(() {
       _clockIn = _timeStr;
+      _isButtonInDisabled = false;
+      _isButtonOutDisabled = true;
       _timerStream = stopWatchStream();
       _timerSubscription = _timerStream.listen((int newTick) {
         setState(() {
-          _hoursStr = ((newTick / (60 * 60)) % 60)
-              .floor()
-              .toString()
-              .padLeft(2, '0');
-          _minutesStr = ((newTick / 60) % 60)
-              .floor()
-              .toString()
-              .padLeft(2, '0');
-          _secondsStr =
-              (newTick % 60).floor().toString().padLeft(2, '0');
+          _hoursStr =
+              ((newTick / (60 * 60)) % 60).floor().toString().padLeft(2, '0');
+          _minutesStr =
+              ((newTick / 60) % 60).floor().toString().padLeft(2, '0');
+          _secondsStr = (newTick % 60).floor().toString().padLeft(2, '0');
         });
       });
+    });
+  }
+
+  void _setClockOut() {
+    setState(() {
+      _timerSubscription.cancel();
+      _clockOut = _timeStr;
+      _isButtonOutDisabled = false;
     });
   }
 
@@ -117,7 +127,8 @@ class _AttendanceViewState extends State<AttendanceView> {
       appBar: AppBar(
         title: Text('Attendance'),
       ),
-      body: Row(
+      body: SingleChildScrollView (
+      child : Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -217,6 +228,16 @@ class _AttendanceViewState extends State<AttendanceView> {
                             ),
                           ],
                         ),
+                        Container(
+                          child: Text(
+                            'Working Time:',
+                            style: TextStyle(
+                                color: Colors.blue[600],
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          margin: EdgeInsets.all(9),
+                        ),
                         Center(
                           child: Text(
                             '$_hoursStr:$_minutesStr:$_secondsStr',
@@ -226,25 +247,70 @@ class _AttendanceViewState extends State<AttendanceView> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
+                        Container(
+                          margin: EdgeInsets.only(top: 18),
+                        ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            RaisedButton(
-                              child: new Text('Clock In', style: new TextStyle(fontSize: 20.0,)),
-                              color: new Color(0xFF8B1122),
-                              textColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-                              elevation: 10.0,
-                              splashColor: Colors.white70,
-                              onPressed: _setClockIn,
+                            SizedBox(
+                              width: 160,
+                              height: 100,
+                              child: RaisedButton(
+                                child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Image.asset('assets/images/clockin.png',
+                                          height: 50, fit: BoxFit.fill),
+                                      Text('Clock In',
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                          ))
+                                    ]),
+                                color: Colors.blue,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(color: Colors.blue[600])),
+                                textColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 40.0),
+                                elevation: 10.0,
+                                splashColor: Colors.white70,
+                                onPressed:
+                                    _isButtonInDisabled ? _setClockIn : null,
+                              ),
                             ),
-                            RaisedButton(
-                              child: new Text('Clock Out', style: new TextStyle(fontSize: 20.0,)),
-                              color: new Color(0xFF8B1122),
-                              textColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-                              elevation: 10.0,
-                              splashColor: Colors.white70,
-                              onPressed: _setClockIn,
+                            SizedBox(
+                              width: 160,
+                              height: 100,
+                              child: RaisedButton(
+                                child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/clockout.png',
+                                        height: 50,
+                                        width: 50,
+                                      ),
+                                      Text('Clock Out',
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                          ))
+                                    ]),
+                                color: Colors.blue,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    side: BorderSide(color: Colors.blue[600])),
+                                textColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 40.0),
+                                elevation: 10.0,
+                                splashColor: Colors.white70,
+                                onPressed:
+                                    _isButtonOutDisabled ? _setClockOut : null,
+                              ),
                             ),
                           ],
                         ),
@@ -274,6 +340,6 @@ class _AttendanceViewState extends State<AttendanceView> {
           ),
         ],
       ),
-    );
+    ));
   }
 }
