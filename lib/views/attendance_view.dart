@@ -254,7 +254,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: 160,
+                              width: 140,
                               height: 100,
                               child: RaisedButton(
                                 child: Column(
@@ -274,7 +274,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                                     side: BorderSide(color: Colors.blue[600])),
                                 textColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 40.0),
+                                    vertical: 10.0, horizontal: 10.0),
                                 elevation: 10.0,
                                 splashColor: Colors.white70,
                                 onPressed:
@@ -282,7 +282,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                               ),
                             ),
                             SizedBox(
-                              width: 160,
+                              width: 140,
                               height: 100,
                               child: RaisedButton(
                                 child: Column(
@@ -305,7 +305,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                                     side: BorderSide(color: Colors.blue[600])),
                                 textColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 40.0),
+                                    vertical: 10.0, horizontal: 10.0),
                                 elevation: 10.0,
                                 splashColor: Colors.white70,
                                 onPressed:

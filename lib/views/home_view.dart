@@ -55,13 +55,17 @@ class _HomeViewState extends State<HomeView> {
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(10,5,10,10),
                         child: Image(
                           image: AssetImage(d._img),
                           height: 40,
                         ),
                       ),
-                      Text(d._title, style: TextStyle(color: Colors.blue))
+                      Container(
+                        padding: EdgeInsets.only(bottom: 5),
+                        child: Text(d._title, style: TextStyle(color: Colors.blue, fontSize: 12),)
+                      ),
+
                     ],
                   ),
                 ),

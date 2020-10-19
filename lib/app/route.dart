@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:startup_namer/views/account_detail_view.dart';
 import 'package:startup_namer/views/attendance_view.dart';
 import 'package:startup_namer/views/home_view.dart';
 import 'package:startup_namer/views/main_map.dart';
@@ -13,6 +14,7 @@ class Routes {
   static const String vroute = RouteView.routeName;
   static const String mitra = MitraView.routeName;
   static const String mapmap = MainMap.routeName;
+  static const String accdtl = AccountDetailView.routeName;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {

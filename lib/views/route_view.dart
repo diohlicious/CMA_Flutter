@@ -23,7 +23,6 @@ class _RouteViewState extends State<RouteView> {
   @override
   void initState() {
     this._getData();
-    this._getMap();
 
     super.initState();
   }
@@ -35,6 +34,7 @@ class _RouteViewState extends State<RouteView> {
     this.setState(() {
       data = json.decode(response);
     });
+    _getMap();
 
     print(data[1]["title"]);
 
@@ -71,7 +71,7 @@ class _RouteViewState extends State<RouteView> {
   }
 
   Future<String> _getMap() async {
-    for (var i; i < data.length; i++) {
+    for (var i=0; i < data.length; i++) {
       setState(() {
         _latlon(i);
       });
@@ -140,7 +140,6 @@ class _RouteViewState extends State<RouteView> {
   //-------------------------------------------Recycler View----------------------------------------
 
   Widget _itemBuilder(BuildContext context, int index) {
-    _latlon(index);
     return Card(
         elevation: 3,
         shape:
