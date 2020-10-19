@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
+import 'package:startup_namer/model/my_markers.dart';
 
 class RouteView extends StatefulWidget {
   static const String routeName = '/vroute';
@@ -20,14 +22,14 @@ class _RouteViewState extends State<RouteView> {
 
   @override
   void initState() {
-    this.getData();
-    //this._onMapCreated();
+    this._getData();
+    this._getMap();
 
     super.initState();
   }
 
 //==============================================Get Data Json===========================================
-  Future<String> getData() async {
+  Future<String> _getData() async {
     var response = await rootBundle.loadString('assets/json/account.json');
 
     this.setState(() {
@@ -40,46 +42,67 @@ class _RouteViewState extends State<RouteView> {
   }
 
   //==============================================Set Map===========================================
-  Completer<GoogleMapController> _controller = Completer();
-  List _latList = [];
-  List _lonList = [];
-  static const LatLng _center = const LatLng(0, 0);
-  LatLng _lastMapPosition = _center;
-
-  void _onCameraMove(CameraPosition position) {
-    _lastMapPosition = position.target;
-  }
-
-  void _onMapCreated(GoogleMapController controller) async  {
-    _controller.complete(controller);
-    LatLngBounds latLngBounds = await controller.getVisibleRegion();
-    }
-
-
+  GoogleMapController mapController;
+  List<Map<String, dynamic>> locations = new List();
+  Set<MyMarker> markersList = new Set();
 
   void _latlon(int index) {
     String d;
+    String n;
     for (var i = 0; i < data[index]['Address'].length; i++) {
       if (data[index]['Address'][i]['Priority'] == '1' &&
           data[index]['Address'][i]['LatLong'].length > 0) {
         d = data[index]['Address'][i]['LatLong'];
+        n = data[index]['CustomerFullName'];
         List _latLonParse = d.split(',');
         double _latD = double.parse(_latLonParse[0]);
         double _lonD = double.parse(_latLonParse[1]);
-        _markers.add(
-          Marker(
-            markerId: MarkerId(d),
-            position: LatLng(_latD, _lonD),
-            icon: BitmapDescriptor.defaultMarker,
-            infoWindow: InfoWindow(
-                title: data[index]['CustomerFullName'].toString(),
-                snippet: data[index]['Address'][i]['Address'].toString()),
-          ),
-        );
-        _latList.add(_latD);
-        _lonList.add(_lonD);
+
+        locations.add({
+          'Location_Number': d,
+          'Location_Name': n,
+          'coordinates': [_lonD, _latD]
+        });
       }
     }
+  }
+
+  Future<String> _getMap() async {
+    for (var i; i < data.length; i++) {
+      setState(() {
+        _latlon(i);
+      });
+    }
+
+    return "Success!";
+  }
+
+  // add the markers to the markersList
+  void _addMarkers() {
+    locations.forEach((Map<String, dynamic> location) {
+      final MyMarker marker = MyMarker(location['Location_Name'],
+          id: MarkerId(location['Location_Number']),
+          lat: location['coordinates'][1],
+          lng: location['coordinates'][0],
+          onTap: null);
+
+      markersList.add(marker);
+    });
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    // update map controller
+    setState(() {
+      mapController = controller;
+    });
+    // add the markers to the map
+    _addMarkers();
+
+    // create bounding box for view
+    LatLngBounds _bounds = FindBoundsCoordinates().getBounds(markersList);
+
+    // adjust camera to boundingBox
+    controller.animateCamera(CameraUpdate.newLatLngBounds(_bounds, 100.0));
   }
 
   //==============================================Get Nested from data===========================================
@@ -191,11 +214,10 @@ class _RouteViewState extends State<RouteView> {
               onMapCreated: _onMapCreated,
               mapType: MapType.normal,
               initialCameraPosition: CameraPosition(
-                target: _center,
+                target: LatLng(0, 0),
                 zoom: 14.0,
               ),
-              markers: _markers,
-              onCameraMove: _onCameraMove,
+              markers: markersList.toSet(),
             ),
           ),
           Expanded(
@@ -204,9 +226,25 @@ class _RouteViewState extends State<RouteView> {
                 itemCount: data == null ? 0 : data.length,
                 itemBuilder: _itemBuilder),
           ),
-          Text(_latList.toString()+'-'+_lonList.toString()+'-'+_markers.toString())
         ],
       ),
+    );
+  }
+}
+
+class FindBoundsCoordinates {
+  LatLngBounds getBounds(Set<MyMarker> locations) {
+    List<double> latitudes = [];
+    List<double> londitude = [];
+
+    locations.toList().forEach((index) {
+      latitudes.add(index.position.latitude);
+      londitude.add(index.position.longitude);
+    });
+
+    return LatLngBounds(
+      southwest: LatLng(latitudes.reduce(min), londitude.reduce(min)),
+      northeast: LatLng(latitudes.reduce(max), londitude.reduce(max)),
     );
   }
 }
