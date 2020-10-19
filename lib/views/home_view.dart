@@ -15,7 +15,7 @@ class HomeView extends StatefulWidget {
     FavItem('assets/images/ic_attendance.png', 'Attendance', Routes.attendance),
     FavItem('assets/images/ic_route.png', 'Route', Routes.vroute),
     FavItem('assets/images/ic_mitra.png', 'Mitra', Routes.mitra),
-    FavItem('assets/images/ic_add.png', 'Add', null),
+    FavItem('assets/images/ic_add.png', 'Add', Routes.mapmap),
     FavItem('assets/images/ic_appointment.png', 'Appointment', null),
     FavItem('assets/images/ic_recovery.png', 'Recovery', null),
     FavItem('assets/images/ic_archive.png', 'Archive', null),

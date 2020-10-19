@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:startup_namer/views/attendance_view.dart';
 import 'package:startup_namer/views/home_view.dart';
+import 'package:startup_namer/views/main_map.dart';
 import 'package:startup_namer/views/mitra_view.dart';
 import 'package:startup_namer/views/route_view.dart';
 
@@ -11,6 +12,8 @@ class Routes {
   static const String attendance = AttendanceView.routeName;
   static const String vroute = RouteView.routeName;
   static const String mitra = MitraView.routeName;
+  static const String mapmap = MainMap.routeName;
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
@@ -21,6 +24,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => RouteView());
       case mitra:
         return MaterialPageRoute(builder: (_) => MitraView());
+      case mapmap:
+        return MaterialPageRoute(builder: (_) => MainMap());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

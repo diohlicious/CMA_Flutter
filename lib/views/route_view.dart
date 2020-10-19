@@ -18,6 +18,15 @@ class _RouteViewState extends State<RouteView> {
   List data;
   final Set<Marker> _markers = {};
 
+  @override
+  void initState() {
+    this.getData();
+    //this._onMapCreated();
+
+    super.initState();
+  }
+
+//==============================================Get Data Json===========================================
   Future<String> getData() async {
     var response = await rootBundle.loadString('assets/json/account.json');
 
@@ -30,22 +39,23 @@ class _RouteViewState extends State<RouteView> {
     return "Success!";
   }
 
-  @override
-  void initState() {
-    this.getData();
+  //==============================================Set Map===========================================
+  Completer<GoogleMapController> _controller = Completer();
+  List _latList = [];
+  List _lonList = [];
+  static const LatLng _center = const LatLng(0, 0);
+  LatLng _lastMapPosition = _center;
 
-    super.initState();
+  void _onCameraMove(CameraPosition position) {
+    _lastMapPosition = position.target;
   }
 
-  String _addressStr(int index) {
-    String d;
-    for (var i = 0; i < data[index]['Address'].length; i++) {
-      if (data[index]['Address'][i]['Priority'] == '1') {
-        d = data[index]['Address'][i]['Address'];
-      }
+  void _onMapCreated(GoogleMapController controller) async  {
+    _controller.complete(controller);
+    LatLngBounds latLngBounds = await controller.getVisibleRegion();
     }
-    return d;
-  }
+
+
 
   void _latlon(int index) {
     String d;
@@ -56,13 +66,32 @@ class _RouteViewState extends State<RouteView> {
         List _latLonParse = d.split(',');
         double _latD = double.parse(_latLonParse[0]);
         double _lonD = double.parse(_latLonParse[1]);
-        _markers.add(Marker(
-          markerId: MarkerId(d),
-          position: LatLng(_latD, _lonD),
-          icon: BitmapDescriptor.defaultMarker,
-        ));
+        _markers.add(
+          Marker(
+            markerId: MarkerId(d),
+            position: LatLng(_latD, _lonD),
+            icon: BitmapDescriptor.defaultMarker,
+            infoWindow: InfoWindow(
+                title: data[index]['CustomerFullName'].toString(),
+                snippet: data[index]['Address'][i]['Address'].toString()),
+          ),
+        );
+        _latList.add(_latD);
+        _lonList.add(_lonD);
       }
     }
+  }
+
+  //==============================================Get Nested from data===========================================
+
+  String _addressStr(int index) {
+    String d;
+    for (var i = 0; i < data[index]['Address'].length; i++) {
+      if (data[index]['Address'][i]['Priority'] == '1') {
+        d = data[index]['Address'][i]['Address'];
+      }
+    }
+    return d;
   }
 
   String _separator(int index) {
@@ -159,12 +188,14 @@ class _RouteViewState extends State<RouteView> {
           Expanded(
             flex: 2,
             child: GoogleMap(
+              onMapCreated: _onMapCreated,
               mapType: MapType.normal,
               initialCameraPosition: CameraPosition(
-                target: LatLng(3.595196, 98.672226),
+                target: _center,
                 zoom: 14.0,
               ),
               markers: _markers,
+              onCameraMove: _onCameraMove,
             ),
           ),
           Expanded(
@@ -173,6 +204,7 @@ class _RouteViewState extends State<RouteView> {
                 itemCount: data == null ? 0 : data.length,
                 itemBuilder: _itemBuilder),
           ),
+          Text(_latList.toString()+'-'+_lonList.toString()+'-'+_markers.toString())
         ],
       ),
     );
