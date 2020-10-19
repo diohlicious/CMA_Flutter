@@ -49,11 +49,13 @@ class _RouteViewState extends State<RouteView> {
   void _latlon(int index) {
     String d;
     String n;
+    String m;
     for (var i = 0; i < data[index]['Address'].length; i++) {
       if (data[index]['Address'][i]['Priority'] == '1' &&
           data[index]['Address'][i]['LatLong'].length > 0) {
         d = data[index]['Address'][i]['LatLong'];
         n = data[index]['CustomerFullName'];
+        m = data[index]['Address'][i]['Address'];
         List _latLonParse = d.split(',');
         double _latD = double.parse(_latLonParse[0]);
         double _lonD = double.parse(_latLonParse[1]);
@@ -61,6 +63,7 @@ class _RouteViewState extends State<RouteView> {
         locations.add({
           'Location_Number': d,
           'Location_Name': n,
+          'Location_Desc': m,
           'coordinates': [_lonD, _latD]
         });
       }
@@ -80,7 +83,9 @@ class _RouteViewState extends State<RouteView> {
   // add the markers to the markersList
   void _addMarkers() {
     locations.forEach((Map<String, dynamic> location) {
-      final MyMarker marker = MyMarker(location['Location_Name'],
+      final MyMarker marker = MyMarker(
+          location['Location_Name'],
+          location['Location_Desc'],
           id: MarkerId(location['Location_Number']),
           lat: location['coordinates'][1],
           lng: location['coordinates'][0],
