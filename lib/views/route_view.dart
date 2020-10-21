@@ -3,15 +3,19 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:startup_namer/model/my_markers.dart';
+import 'package:startup_namer/view_models/route_viewmodel.dart';
 import 'package:startup_namer/views/account_detail_view.dart';
 
 class RouteView extends StatefulWidget {
   static const String routeName = '/vroute';
+
+  final List<RouteViewModel> data;
+
+  RouteView({this.data});
 
   @override
   _RouteViewState createState() => _RouteViewState();
@@ -19,17 +23,16 @@ class RouteView extends StatefulWidget {
 
 class _RouteViewState extends State<RouteView> {
   List data;
-  final Set<Marker> _markers = {};
 
-  @override
+  /*@override
   void initState() {
     this._getData();
 
     super.initState();
   }
-
+*/
 //==============================================Get Data Json===========================================
-  Future<String> _getData() async {
+  /*Future<String> _getData() async {
     var response = await rootBundle.loadString('assets/json/account.json');
 
     this.setState(() {
@@ -40,7 +43,7 @@ class _RouteViewState extends State<RouteView> {
     print(data[1]["title"]);
 
     return "Success!";
-  }
+  }*/
 
   //==============================================Set Map===========================================
   GoogleMapController mapController;
