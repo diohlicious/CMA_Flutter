@@ -33,39 +33,6 @@
         "Priority": "0",
         "Type": "Company",
         "ZipCode": null
-      },
-      {
-        "Address": "jalan, , , , ",
-        "Alamat": "jalan",
-        "City": null,
-        "Kecamatan": null,
-        "Kelurahan": null,
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Residance",
-        "ZipCode": null
-      },
-      {
-        "Address": "oke, , , , ",
-        "Alamat": "oke",
-        "City": null,
-        "Kecamatan": null,
-        "Kelurahan": null,
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Legal",
-        "ZipCode": null
-      },
-      {
-        "Address": "pos, , , , ",
-        "Alamat": "pos",
-        "City": null,
-        "Kecamatan": null,
-        "Kelurahan": null,
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Company",
-        "ZipCode": null
       }
     ],
     "AgreementNo": "5391400026",
@@ -192,17 +159,6 @@
         "Priority": "0",
         "Type": "Company",
         "ZipCode": ""
-      },
-      {
-        "Address": null,
-        "Alamat": "Jl.sunburst bsd",
-        "City": "Tangerang Selatan",
-        "Kecamatan": "bsd",
-        "Kelurahan": "bsd",
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Residence",
-        "ZipCode": "151514"
       }
     ],
     "AgreementDate": "2016-03-23 00:00:00",

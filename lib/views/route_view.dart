@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:startup_namer/model/my_markers.dart';
+import 'package:startup_namer/views/account_detail_view.dart';
 
 class RouteView extends StatefulWidget {
   static const String routeName = '/vroute';
@@ -71,7 +72,7 @@ class _RouteViewState extends State<RouteView> {
   }
 
   Future<String> _getMap() async {
-    for (var i=0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       setState(() {
         _latlon(i);
       });
@@ -84,8 +85,7 @@ class _RouteViewState extends State<RouteView> {
   void _addMarkers() {
     locations.forEach((Map<String, dynamic> location) {
       final MyMarker marker = MyMarker(
-          location['Location_Name'],
-          location['Location_Desc'],
+          location['Location_Name'], location['Location_Desc'],
           id: MarkerId(location['Location_Number']),
           lat: location['coordinates'][1],
           lng: location['coordinates'][0],
@@ -140,68 +140,78 @@ class _RouteViewState extends State<RouteView> {
   //-------------------------------------------Recycler View----------------------------------------
 
   Widget _itemBuilder(BuildContext context, int index) {
-    return Card(
-        elevation: 3,
-        shape:
-            (RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0))),
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.all(5),
-              child: Icon(
-                data[index]['AssetType'] == 'MOTOR'
-                    ? Icons.motorcycle
-                    : Icons.directions_car,
-                size: 64,
-                color: Colors.blue[300],
+    return GestureDetector(
+        child: Card(
+          elevation: 3,
+          shape: (RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0))),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(5),
+                child: Icon(
+                  data[index]['AssetType'] == 'MOTOR'
+                      ? Icons.motorcycle
+                      : Icons.directions_car,
+                  size: 64,
+                  color: Colors.blue[300],
+                ),
               ),
-            ),
-            Container(
+              Container(
                 padding: const EdgeInsets.all(16.0),
                 width: MediaQuery.of(context).size.width * 0.7,
-                child: Column(children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(data[index]['CustomerFullName'],
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          )),
-                      Text(
-                          data[index]['AgreementNo'] +
-                              ' · ' +
-                              data[index]['LicensePlate'],
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          )),
-                      Text(_addressStr(index),
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 13,
-                          )),
-                      Text(
-                          _separator(index).toString() +
-                              ' · ' +
-                              _woDate(index) +
-                              ' (WO Date)',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          )),
-                    ],
-                  )
-                ]))
-          ],
-        ));
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(data[index]['CustomerFullName'],
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        )),
+                    Text(
+                        data[index]['AgreementNo'] +
+                            ' · ' +
+                            data[index]['LicensePlate'],
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        )),
+                    Text(_addressStr(index),
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 13,
+                        )),
+                    Text(
+                      _separator(index).toString() +
+                          ' · ' +
+                          _woDate(index) +
+                          ' (WO Date)',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AccountDetailView(dataModel: data[index]),
+            ),
+          );
+        });
   }
 
   @override
@@ -239,16 +249,16 @@ class _RouteViewState extends State<RouteView> {
 class FindBoundsCoordinates {
   LatLngBounds getBounds(Set<MyMarker> locations) {
     List<double> latitudes = [];
-    List<double> londitude = [];
+    List<double> longitude = [];
 
     locations.toList().forEach((index) {
       latitudes.add(index.position.latitude);
-      londitude.add(index.position.longitude);
+      longitude.add(index.position.longitude);
     });
 
     return LatLngBounds(
-      southwest: LatLng(latitudes.reduce(min), londitude.reduce(min)),
-      northeast: LatLng(latitudes.reduce(max), londitude.reduce(max)),
+      southwest: LatLng(latitudes.reduce(min), longitude.reduce(min)),
+      northeast: LatLng(latitudes.reduce(max), longitude.reduce(max)),
     );
   }
 }

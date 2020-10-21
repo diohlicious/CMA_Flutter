@@ -32,6 +32,7 @@ dependencies:
   animations: ^1.1.2
   google_maps_flutter: ^0.5.19+2
   flutter_money_formatter: ^0.8.3
+  espresso: ^0.0.1+7
 
 dev_dependencies:
   flutter_test:

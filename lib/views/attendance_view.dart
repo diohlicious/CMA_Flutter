@@ -92,8 +92,8 @@ class _AttendanceViewState extends State<AttendanceView> {
   }
 
   //------------------------------------------Clock In-------------------------------------------
-  String _clockIn = '--:--:--';
-  String _clockOut = '--:--:--';
+  String _clockIn = '- - : - - : - -';
+  String _clockOut = '- - : - - : - -';
 
   void _setClockIn() {
     setState(() {
@@ -173,7 +173,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 18),
+                          margin: EdgeInsets.only(top: 16),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -201,7 +201,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 18),
+                          margin: EdgeInsets.only(top: 12),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -236,7 +236,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold),
                           ),
-                          margin: EdgeInsets.all(9),
+                          margin: EdgeInsets.only(top:8, bottom: 4),
                         ),
                         Center(
                           child: Text(
@@ -270,8 +270,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                                     ]),
                                 color: Colors.blue,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    side: BorderSide(color: Colors.blue[600])),
+                                    borderRadius: BorderRadius.circular(8.0)),
                                 textColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 10.0),
@@ -301,8 +300,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                                     ]),
                                 color: Colors.blue,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    side: BorderSide(color: Colors.blue[600])),
+                                    borderRadius: BorderRadius.circular(8.0)),
                                 textColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 10.0),
