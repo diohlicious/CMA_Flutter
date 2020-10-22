@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:startup_namer/views/dashboard_view.dart';
 import 'package:startup_namer/views/setting_view.dart';
@@ -15,11 +16,12 @@ class DrawerItem {
 
 class Navigation extends StatefulWidget {
   final drawerItems = [
-    DrawerItem("Home", Icons.home),
-    DrawerItem("Task", Icons.article_outlined),
-    DrawerItem("Inbox", Icons.inbox),
+    DrawerItem("Home", CupertinoIcons.home),
+    DrawerItem("Task", CupertinoIcons.doc),
+    DrawerItem("Inbox", CupertinoIcons.tray_fill),
     DrawerItem("Dashboard", Icons.dashboard),
-    DrawerItem("Settings", Icons.settings)
+    DrawerItem("Settings", CupertinoIcons.settings),
+    DrawerItem("Log Out", CupertinoIcons.power)
   ];
 
   @override
@@ -42,7 +44,7 @@ class _NavigationState extends State<Navigation> {
       case 4:
         return SettingView();
       default:
-        return Text("Error");
+        return Text('');
     }
   }
 

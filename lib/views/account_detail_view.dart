@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:startup_namer/model/my_markers.dart';
+import 'package:startup_namer/models/marker_model.dart';
 
 class AccountDetailView extends StatefulWidget {
   static const String routeName = '/accdtl';
@@ -32,7 +32,7 @@ class _AccountDetailViewState extends State<AccountDetailView> {
   }
 
   GoogleMapController mapController;
-  Set<MyMarker> markersList = new Set();
+  Set<MarkerModel> markersList = new Set();
 
   List <Map<String,dynamic>> locations = new List();
   void _addMarkers() {
@@ -42,9 +42,10 @@ class _AccountDetailViewState extends State<AccountDetailView> {
       locations.add(widget.dataModel['Address'][i]);
 
     }
+
     locations.forEach((Map<String, dynamic> location) {
       List coordinates = location['LatLong'].split(', ');
-      final MyMarker marker = MyMarker(
+      final MarkerModel marker = MarkerModel(
           location['Type'], '*',
           id: MarkerId(location['LatLong']),
           lat: double.parse(coordinates[0]),

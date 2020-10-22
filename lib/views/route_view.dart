@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
-import 'package:startup_namer/model/my_markers.dart';
+import 'package:startup_namer/models/marker_model.dart';
 import 'package:startup_namer/views/account_detail_view.dart';
 
 class RouteView extends StatefulWidget {
@@ -45,7 +45,7 @@ class _RouteViewState extends State<RouteView> {
   //==============================================Set Map===========================================
   GoogleMapController mapController;
   List<Map<String, dynamic>> locations = new List();
-  Set<MyMarker> markersList = new Set();
+  Set<MarkerModel> markersList = new Set();
 
   void _latlon(int index) {
     String d;
@@ -84,7 +84,7 @@ class _RouteViewState extends State<RouteView> {
   // add the markers to the markersList
   void _addMarkers() {
     locations.forEach((Map<String, dynamic> location) {
-      final MyMarker marker = MyMarker(
+      final MarkerModel marker = MarkerModel(
           location['Location_Name'], location['Location_Desc'],
           id: MarkerId(location['Location_Number']),
           lat: location['coordinates'][1],
@@ -247,7 +247,7 @@ class _RouteViewState extends State<RouteView> {
 }
 
 class FindBoundsCoordinates {
-  LatLngBounds getBounds(Set<MyMarker> locations) {
+  LatLngBounds getBounds(Set<MarkerModel> locations) {
     List<double> latitudes = [];
     List<double> longitude = [];
 
