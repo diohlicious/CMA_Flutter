@@ -67,10 +67,10 @@ Widget _cardHeader() {
     child: Container(
       margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
       padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
-      decoration: BoxDecoration(
+      /*decoration: BoxDecoration(
           border: Border(
         top: BorderSide(width: 1.0, color: Colors.blue[200]),
-      )),
+      )),*/
       child: Column(
         children: [
           Align(
@@ -109,7 +109,7 @@ Widget _itemHeader(String _title, String _img, String _pct, String _text) {
       elevation: 6,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
-        side: BorderSide(color: Colors.blue, width: 0.9),
+        //side: BorderSide(color: Colors.blue, width: 0.9),
       ),
       child: Container(
         padding: EdgeInsets.all(8),
