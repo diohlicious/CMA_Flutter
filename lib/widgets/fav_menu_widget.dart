@@ -7,6 +7,8 @@ class FavMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Navigator.pushNamed(context,d['_onTap'])
+
     var _favColumn = <Widget>[];
     var _favRow = <Widget>[];
     var chunks = [];
@@ -16,22 +18,24 @@ class FavMenuWidget extends StatelessWidget {
     }
     for (var i = 0; i < chunks.length; i++) {
       for (var j = 0; j < chunks[i].length; j++) {
-
         var d = chunks[i][j];
         _favRow.add(
           Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () =>d['_onTap'].length>0?Navigator.pushNamed(context,d['_onTap']) : null,
-              child: Card(
-                color: Colors.white,
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.blue, width: 1),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                child: Container(
-                  padding: EdgeInsets.all(5),
+              flex: 1,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(3,10,3,10),
+                child: RaisedButton(
+                  padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 1.0),
+                  splashColor: Colors.white70,
+                  color: Colors.white,
+                  disabledColor: Colors.grey[100],
+                  highlightColor: Colors.green[100],
+                  shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.blue, width: 1),
+                      borderRadius: BorderRadius.circular(12.0)),
+                  onPressed: d['_isActive']
+                      ? () => Navigator.pushNamed(context, d['_onTap'])
+                      : null,
                   child: Column(
                     children: [
                       Container(
@@ -52,12 +56,10 @@ class FavMenuWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ),
-          ),
+              )),
         );
       }
-      for (var j = 0; j < 4-chunks[i].length; j++) {
+      for (var j = 0; j < 4 - chunks[i].length; j++) {
         _favRow.add(
           Expanded(
             child: Container(),
