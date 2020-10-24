@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:startup_namer/resource/values/app_colors.dart';
 import 'package:startup_namer/view_models/home_ads_viewmodel.dart';
 import 'package:startup_namer/widgets/ads_carousel.dart';
 import 'package:startup_namer/widgets/fav_menu_widget.dart';
@@ -39,21 +38,44 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            child: HomeHeaderWidget(),
-          ),
-          Container(
-            child: FavMenuWidget(favItem: widget.favItem),
-            //Text(favItem.toString())
-          ),
-          Container(
-            child: AdsCarousel(ads: dataUser),
-          )
-        ]),
+        body: Stack(
+          children: [
+            Container(
+              alignment: Alignment.bottomLeft,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: ExactAssetImage('assets/images/3405625.jpg'),
+                    fit: BoxFit.fill,
+                  )
+              ),
+              child: Text ('Background vector created by freepik - www.freepik.com',
+              style: TextStyle(fontSize: 12.5, color: Colors.grey[400]),),
+            ),
+            Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: HomeHeaderWidget(),
+                  ),
+                  Container(
+                    child: FavMenuWidget(favItem: widget.favItem),
+                    //Text(favItem.toString())
+                  ),
+                  Container(
+                    child: AdsCarousel(ads: dataUser),
+                  )
+                ]),
+          ],        )
+
     );
   }
 }
