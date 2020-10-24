@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:startup_namer/repository/ad_item.dart';
+import 'package:startup_namer/resource/values/app_colors.dart';
 
 
 class AdsCarousel extends StatefulWidget {
@@ -78,7 +79,7 @@ class _AdsCarouselState extends State<AdsCarousel> {
                             begin: Alignment.centerRight,
                             end: Alignment.centerLeft,
                             stops: [0.5, 0],
-                            colors: [Color(0xFF0F346A), Colors.blue[100]]),
+                            colors: [AppColors.DARK_BLUE, Colors.blue[100]]),
                       ),
                       child: card,
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:startup_namer/resource/values/app_colors.dart';
 
 class AppbarWidget extends StatelessWidget implements PreferredSizeWidget{
   final String mainTitle;
@@ -16,14 +17,14 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget{
           child: Stack(
             children:[
               Container(
-                width: MediaQuery.of(context).size.height,
-                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width ,
+                height: MediaQuery.of(context).size.height ,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment(0.8, 0.0),
                         colors: <Color>[
-                          Color(0xFF0F346A),
+                          AppColors.DARK_BLUE,
                           Colors.white,
                         ])),
               ),

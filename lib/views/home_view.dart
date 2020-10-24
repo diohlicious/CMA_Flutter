@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:startup_namer/resource/values/app_colors.dart';
 import 'package:startup_namer/view_models/home_ads_viewmodel.dart';
 import 'package:startup_namer/widgets/ads_carousel.dart';
 import 'package:startup_namer/widgets/fav_menu_widget.dart';
+import 'package:startup_namer/widgets/home_header_widget.dart';
 
 class HomeView extends StatefulWidget {
   static const String routeName = '/home';
@@ -42,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
             children: [
           Container(
             margin: EdgeInsets.only(top: 10),
-            child: _cardHeader(),
+            child: HomeHeaderWidget(),
           ),
           Container(
             child: FavMenuWidget(favItem: widget.favItem),
@@ -56,107 +58,6 @@ class _HomeViewState extends State<HomeView> {
   }
 }
 
-//-------------------------------------------------Header
-Widget _cardHeader() {
-  return Card(
-    elevation: 6,
-    color: Color(0xFF0F346A),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
-    ),
-    child: Container(
-      margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-      padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
-      /*decoration: BoxDecoration(
-          border: Border(
-        top: BorderSide(width: 1.0, color: Colors.blue[200]),
-      )),*/
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(16, 8, 8, 0),
-              child: Text(
-                'Achievement',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Row(
-            children: [
-              _itemHeader(
-                  'Target', 'assets/images/list_logo_reverse.png', '0.0', '0'),
-              _itemHeader(
-                  'Payment', 'assets/images/rp_logo_reverse.png', '0.0', '0'),
-              _itemHeader(
-                  'Cash In', 'assets/images/rp_logo_reverse.png', '0.0', '0'),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
-}
 
-Widget _itemHeader(String _title, String _img, String _pct, String _text) {
-  return Expanded(
-    flex: 1,
-    child: Card(
-      elevation: 6,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        //side: BorderSide(color: Colors.blue, width: 0.9),
-      ),
-      child: Container(
-        padding: EdgeInsets.all(8),
-        child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-          Container(
-              alignment: Alignment(-1.0, 0.0),
-              margin: EdgeInsets.fromLTRB(2, 2, 0, 2),
-              child: Text(
-                _title,
-                style: TextStyle(fontSize: 18, color: Colors.grey),
-                textAlign: TextAlign.center,
-              )),
-          Container(
-            width: double.maxFinite,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  child: Image(
-                    image: AssetImage(_img),
-                    width: 30,
-                    height: 30,
-                  ),
-                ),
-                Container(
-                  alignment: Alignment(1.0, 0.0),
-                  child: Text(
-                    _pct,
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            alignment: Alignment(1.0, 0.0),
-            margin: EdgeInsets.fromLTRB(2, 2, 0, 2),
-            child: Text(
-              _pct,
-              style: TextStyle(fontSize: 18, color: Colors.grey),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ]),
-      ),
-    ),
-  );
-}
+
+
