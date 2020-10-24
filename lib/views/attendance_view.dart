@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:startup_namer/widgets/appbar_widget.dart';
 
 class AttendanceView extends StatefulWidget {
   static const String routeName = '/attendance';
@@ -124,9 +125,7 @@ class _AttendanceViewState extends State<AttendanceView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Attendance'),
-      ),
+      appBar: AppbarWidget(mainTitle: 'Attendance'),
       body: SingleChildScrollView (
       child : Row(
         mainAxisSize: MainAxisSize.max,

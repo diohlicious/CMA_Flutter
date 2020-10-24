@@ -60,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
 Widget _cardHeader() {
   return Card(
     elevation: 6,
-    color: Colors.blue,
+    color: Color(0xFF0F346A),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),

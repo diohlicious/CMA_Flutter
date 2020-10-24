@@ -9,6 +9,7 @@ import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:startup_namer/models/marker_model.dart';
 import 'package:startup_namer/views/account_detail_view.dart';
+import 'package:startup_namer/widgets/appbar_widget.dart';
 
 class RouteView extends StatefulWidget {
   static const String routeName = '/vroute';
@@ -217,9 +218,7 @@ class _RouteViewState extends State<RouteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Route'),
-      ),
+      appBar: AppbarWidget(mainTitle: 'Route',),
       body: Column(
         children: [
           Expanded(
