@@ -14,4 +14,5 @@ class HomeAdService {
 
     return _adData;
   }
+
 }

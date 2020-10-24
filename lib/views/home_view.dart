@@ -1,27 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:startup_namer/app/route.dart';
+import 'package:startup_namer/services/fav_firestore_service.dart';
 import 'package:startup_namer/view_models/home_ads_viewmodel.dart';
 import 'package:startup_namer/widgets/ads_carousel.dart';
+import 'package:startup_namer/widgets/fav_menu_widget.dart';
 
 class FavItem {
-  String _img;
   String _title;
   String _onTap;
-
+  String _img;
   FavItem(this._img, this._title, this._onTap);
 }
 
 class HomeView extends StatefulWidget {
   static const String routeName = '/home';
-  final favItem = [
-    FavItem('assets/images/ic_attendance.png', 'Attendance', Routes.attendance),
-    FavItem('assets/images/ic_route.png', 'Route', Routes.vroute),
-    FavItem('assets/images/ic_mitra.png', 'Mitra', Routes.mitra),
-    FavItem('assets/images/ic_add.png', 'Add', null),
-    FavItem('assets/images/ic_appointment.png', 'Appointment', null),
-    FavItem('assets/images/ic_recovery.png', 'Recovery', null),
-    FavItem('assets/images/ic_archive.png', 'Archive', null),
-    FavItem('assets/images/ic_find.png', 'Find', null),
+  List favMenus = [
+  FavItem('assets/images/ic_attendance.png', 'Attendance', Routes.attendance),
+  FavItem('assets/images/ic_route.png', 'Route', Routes.vroute),
+  FavItem('assets/images/ic_mitra.png', 'Mitra', Routes.mitra),
+  FavItem('assets/images/ic_add.png', 'Add', null),
+  FavItem('assets/images/ic_appointment.png', 'Appointment', null),
+  FavItem('assets/images/ic_recovery.png', 'Recovery', null),
+  FavItem('assets/images/ic_archive.png', 'Archive', null),
+  FavItem('assets/images/ic_find.png', 'Find', null),
   ];
 
   @override
@@ -36,6 +38,8 @@ class _HomeViewState extends State<HomeView> {
   }
 
   List dataUser;
+  dynamic favItem;
+
 
   void getDataAds() {
     HomeAdsViewModel().fetchAds().then((value) {
@@ -43,61 +47,20 @@ class _HomeViewState extends State<HomeView> {
         dataUser = value;
       });
     });
+    //TODO delete this model
+    /*HomeFavViewModel().fetchFav().then((value) {
+      setState(() {
+        favItem = value;
+      });
+    });*/
+    FavFirestoreService().fetchFav().then((value){
+      setState(() {
+        favItem = value;
+      });
+    });
   }
 
   Widget build(BuildContext context) {
-    var _favColumn = <Widget>[];
-    var _favRow = <Widget>[];
-    var chunks = [];
-    for (var i = 0; i < widget.favItem.length; i += 4) {
-      chunks.add(widget.favItem.sublist(
-          i, i + 4 > widget.favItem.length ? widget.favItem.length : i + 4));
-    }
-    for (var i = 0; i < chunks.length; i++) {
-      for (var j = 0; j < chunks[i].length; j++) {
-        var d = chunks[i][j];
-        _favRow.add(
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () => Navigator.pushNamed(context, d._onTap),
-              child: Card(
-                color: Colors.white,
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.blue, width: 1),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-                        child: Image(
-                          image: AssetImage(d._img),
-                          height: 40,
-                        ),
-                      ),
-                      Container(
-                          padding: EdgeInsets.only(bottom: 5),
-                          child: Text(
-                            d._title,
-                            style: TextStyle(color: Colors.blue, fontSize: 12),
-                          )),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      }
-      _favColumn.add(Row(
-        children: _favRow,
-      ));
-      _favRow = [];
-    }
 
     return Scaffold(
         body: Column(
@@ -107,8 +70,8 @@ class _HomeViewState extends State<HomeView> {
             margin: EdgeInsets.only(top: 10),
             child: _cardHeader(),
           ),
-          Column(
-            children: _favColumn,
+          Container(
+            child: FavMenuWidget(favItem: favItem),
           ),
           Container(
             child: AdsCarousel(ads: dataUser),
