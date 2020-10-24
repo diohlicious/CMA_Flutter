@@ -4,6 +4,7 @@ import 'package:startup_namer/view_models/home_viewmodel.dart';
 import 'package:startup_namer/views/dashboard_view.dart';
 import 'package:startup_namer/views/setting_view.dart';
 import 'package:startup_namer/views/task_view.dart';
+import 'package:startup_namer/widgets/appbar_widget.dart';
 
 import 'home_view.dart';
 import 'inbox_view.dart';
@@ -41,7 +42,7 @@ class _NavigationState extends State<Navigation> {
   dynamic favItem;
 
   void getData() {
-    HomeViewModel().fetchFav().then((value){
+    HomeViewModel().fetchFav().then((value) {
       setState(() {
         favItem = value;
       });
@@ -84,11 +85,7 @@ class _NavigationState extends State<Navigation> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        // here we display the title corresponding to the fragment
-        // you can instead choose to have a static title
-        title: Text(widget.drawerItems[_selectedDrawerIndex].title),
-      ),
+      appBar: AppbarWidget(mainTitle: widget.drawerItems[_selectedDrawerIndex].title),
       drawer: Drawer(
         child: Column(
           children: <Widget>[
