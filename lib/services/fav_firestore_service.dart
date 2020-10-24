@@ -4,7 +4,7 @@ class FavFirestoreService {
 
   dynamic data;
 
-  Future<dynamic> fetchFav() async {
+      Future<dynamic> fetchFav() async {
 
     final DocumentReference document = Firestore.instance.collection("favMenu").document('favMenu-zFdL2S8c5fir0');
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:startup_namer/view_models/home_viewmodel.dart';
 import 'package:startup_namer/views/dashboard_view.dart';
 import 'package:startup_namer/views/setting_view.dart';
 import 'package:startup_namer/views/task_view.dart';
@@ -31,10 +32,26 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   int _selectedDrawerIndex = 0;
 
+  @override
+  void initState() {
+    this.getData();
+    super.initState();
+  }
+
+  dynamic favItem;
+
+  void getData() {
+    HomeViewModel().fetchFav().then((value){
+      setState(() {
+        favItem = value;
+      });
+    });
+  }
+
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return HomeView();
+        return HomeView(favItem: favItem);
       case 1:
         return TaskView();
       case 2:

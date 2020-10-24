@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FavMenuWidget extends StatelessWidget {
+  final List<dynamic> favItem;
 
-  final List favItem;
   const FavMenuWidget({Key key, this.favItem}) : super(key: key);
 
   @override
@@ -11,17 +11,18 @@ class FavMenuWidget extends StatelessWidget {
     var _favRow = <Widget>[];
     var chunks = [];
     for (var i = 0; i < favItem.length; i += 4) {
-      chunks.add(favItem.sublist(
-          i, i + 4 > favItem.length ? favItem.length : i + 4));
+      chunks.add(
+          favItem.sublist(i, i + 4 > favItem.length ? favItem.length : i + 4));
     }
     for (var i = 0; i < chunks.length; i++) {
       for (var j = 0; j < chunks[i].length; j++) {
-        var d = chunks[i][j].map;
+
+        var d = chunks[i][j];
         _favRow.add(
           Expanded(
             flex: 1,
             child: GestureDetector(
-              onTap: () => null,//Navigator.pushNamed(context, d._onTap),
+              onTap: () =>d['_onTap'].length>0?Navigator.pushNamed(context,d['_onTap']) : null,
               child: Card(
                 color: Colors.white,
                 elevation: 2,
@@ -36,13 +37,15 @@ class FavMenuWidget extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
                         child: Image(
-                          image: AssetImage('assets/images/add.png'),//AssetImage(d._img),
+                          image: AssetImage(d['_image']), //d['_image']
                           height: 40,
                         ),
                       ),
                       Container(
                           padding: EdgeInsets.only(bottom: 5),
-                          child: Text(d.map.toString(),
+                          child: //Text(d['_title']+' - '+d['_img']+' - '+d['_onTap'],
+                              Text(
+                            d['_title'],
                             //d._title,
                             style: TextStyle(color: Colors.blue, fontSize: 12),
                           )),
@@ -51,6 +54,14 @@ class FavMenuWidget extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        );
+      }
+      for (var j = 0; j < 4-chunks[i].length; j++) {
+        _favRow.add(
+          Expanded(
+            child: Container(),
+            flex: 1,
           ),
         );
       }
@@ -65,5 +76,3 @@ class FavMenuWidget extends StatelessWidget {
     );
   }
 }
-
-

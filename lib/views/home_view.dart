@@ -1,30 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
-import 'package:startup_namer/app/route.dart';
-import 'package:startup_namer/services/fav_firestore_service.dart';
 import 'package:startup_namer/view_models/home_ads_viewmodel.dart';
 import 'package:startup_namer/widgets/ads_carousel.dart';
 import 'package:startup_namer/widgets/fav_menu_widget.dart';
 
-class FavItem {
-  String _title;
-  String _onTap;
-  String _img;
-  FavItem(this._img, this._title, this._onTap);
-}
-
 class HomeView extends StatefulWidget {
   static const String routeName = '/home';
-  List favMenus = [
-  FavItem('assets/images/ic_attendance.png', 'Attendance', Routes.attendance),
-  FavItem('assets/images/ic_route.png', 'Route', Routes.vroute),
-  FavItem('assets/images/ic_mitra.png', 'Mitra', Routes.mitra),
-  FavItem('assets/images/ic_add.png', 'Add', null),
-  FavItem('assets/images/ic_appointment.png', 'Appointment', null),
-  FavItem('assets/images/ic_recovery.png', 'Recovery', null),
-  FavItem('assets/images/ic_archive.png', 'Archive', null),
-  FavItem('assets/images/ic_find.png', 'Find', null),
-  ];
+
+  final List<dynamic> favItem;
+
+  const HomeView({Key key, this.favItem}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -47,11 +32,6 @@ class _HomeViewState extends State<HomeView> {
         dataUser = value;
       });
     });
-    FavFirestoreService().fetchFav().then((value){
-      setState(() {
-        favItem = value;
-      });
-    });
   }
 
   Widget build(BuildContext context) {
@@ -65,7 +45,8 @@ class _HomeViewState extends State<HomeView> {
             child: _cardHeader(),
           ),
           Container(
-            child: FavMenuWidget(favItem: favItem['data']),
+            child: FavMenuWidget(favItem: widget.favItem),
+            //Text(favItem.toString())
           ),
           Container(
             child: AdsCarousel(ads: dataUser),
