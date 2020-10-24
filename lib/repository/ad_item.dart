@@ -15,7 +15,7 @@ class Item1 extends StatelessWidget {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
             stops: [0, 1],
-            colors: [Colors.blue, Colors.blue[100]]),
+            colors: [Color(0xFF1e6a35), Colors.blue[100]]),
       ),
       child: //Text(adData.toString()),
           Row(
@@ -82,12 +82,12 @@ class Item1 extends StatelessWidget {
                     children: [
                       Text(adData['msgHighlight'] ?? '',
                           style: TextStyle(
-                              color: Colors.blue[800],
+                              color: Color(0xFF0F346A),
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold)),
                       Text(adData['msgHighlightDesc'] ?? '',
                           style: TextStyle(
-                              color: Colors.blue[800],
+                              color: Color(0xFF0F346A),
                               fontSize: 15.0,
                               fontWeight: FontWeight.w600)),
                     ],

@@ -78,7 +78,7 @@ class _AdsCarouselState extends State<AdsCarousel> {
                             begin: Alignment.centerRight,
                             end: Alignment.centerLeft,
                             stops: [0.5, 0],
-                            colors: [Colors.blue, Colors.blue[100]]),
+                            colors: [Color(0xFF0F346A), Colors.blue[100]]),
                       ),
                       child: card,
                     ),
