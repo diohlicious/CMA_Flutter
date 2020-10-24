@@ -33,7 +33,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
-    this.getDataAds();
+    this.getData();
     super.initState();
   }
 
@@ -41,18 +41,12 @@ class _HomeViewState extends State<HomeView> {
   dynamic favItem;
 
 
-  void getDataAds() {
+  void getData() {
     HomeAdsViewModel().fetchAds().then((value) {
       setState(() {
         dataUser = value;
       });
     });
-    //TODO delete this model
-    /*HomeFavViewModel().fetchFav().then((value) {
-      setState(() {
-        favItem = value;
-      });
-    });*/
     FavFirestoreService().fetchFav().then((value){
       setState(() {
         favItem = value;
@@ -71,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
             child: _cardHeader(),
           ),
           Container(
-            child: FavMenuWidget(favItem: favItem),
+            child: FavMenuWidget(favItem: favItem['data']),
           ),
           Container(
             child: AdsCarousel(ads: dataUser),
