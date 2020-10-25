@@ -1,35 +1,43 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:startup_namer/resource/values/app_colors.dart';
 
-class AppbarWidget extends StatelessWidget implements PreferredSizeWidget{
+class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String mainTitle;
+
   const AppbarWidget({Key key, this.mainTitle}) : super(key: key);
+
   @override
   Size get preferredSize => const Size.fromHeight(56);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Text(mainTitle),//widget.drawerItems[_selectedDrawerIndex].title),
+        title: Text(mainTitle),
+        //widget.drawerItems[_selectedDrawerIndex].title),
         flexibleSpace: Container(
-          width: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
-            children:[
+            children: [
               Container(
-                width: MediaQuery.of(context).size.width ,
-                height: MediaQuery.of(context).size.height ,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
                         end: Alignment(0.8, 0.0),
                         colors: <Color>[
-                          AppColors.DARK_BLUE,
-                          Colors.white,
-                        ])),
+                      AppColors.DARK_BLUE,
+                      Colors.white,
+                    ])),
               ),
               ClipRRect(
-                borderRadius: BorderRadius.circular(12.0),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(12.0),
+                    bottomRight: Radius.circular(12.0)),
                 child: Image.asset(
                   'assets/images/toolbar_header2.png',
                   fit: BoxFit.fill,
@@ -40,22 +48,37 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget{
               Container(
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.all(5),
-                  width: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  child:
-                  Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset('assets/images/icon_launcher.png', height: 50,),
-                      Text('Diohlicious', style: TextStyle(color: Colors.blue[800],)),
+                      Image.asset(
+                        'assets/images/icon_launcher.png',
+                        height: 50,
+                      ),
+                      Text('Diohlicious',
+                          style: TextStyle(
+                            color: Colors.blue[800],
+                          )),
                     ],
-                  )
-              ),
+                  )),
+              ClipRRect(
+                // <-- clips to the 200x200 [Container] below
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(12.0),
+                    bottomRight: Radius.circular(12.0)),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.80,
+                    decoration:
+                        BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                  ),
+                ),
+              )
             ],
           ),
         ));
   }
-
-
-
 }

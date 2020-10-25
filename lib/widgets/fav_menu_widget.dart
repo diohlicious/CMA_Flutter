@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-class FavMenuWidget extends StatelessWidget {
+class FavMenuWidget extends StatefulWidget {
   final List<dynamic> favItem;
 
   const FavMenuWidget({Key key, this.favItem}) : super(key: key);
+
+  _FavMenuWidget createState()=>_FavMenuWidget();
+}
+
+class _FavMenuWidget extends State<FavMenuWidget>{
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +17,9 @@ class FavMenuWidget extends StatelessWidget {
     var _favColumn = <Widget>[];
     var _favRow = <Widget>[];
     var chunks = [];
-    for (var i = 0; i < favItem.length; i += 4) {
+    for (var i = 0; i < widget.favItem.length; i += 4) {
       chunks.add(
-          favItem.sublist(i, i + 4 > favItem.length ? favItem.length : i + 4));
+          widget.favItem.sublist(i, i + 4 > widget.favItem.length ? widget.favItem.length : i + 4));
     }
     for (var i = 0; i < chunks.length; i++) {
       for (var j = 0; j < chunks[i].length; j++) {

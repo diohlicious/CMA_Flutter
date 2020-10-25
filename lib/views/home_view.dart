@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
                   )
               ),
               child: Text ('Background vector created by freepik - www.freepik.com',
-              style: TextStyle(fontSize: 12.5, color: Colors.grey[400]),),
+              style: TextStyle(fontSize: 12, color: Colors.grey[400]),),
             ),
             Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

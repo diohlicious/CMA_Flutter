@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:startup_namer/view_models/home_ads_viewmodel.dart';
 import 'package:startup_namer/view_models/home_viewmodel.dart';
 import 'package:startup_namer/views/dashboard_view.dart';
 import 'package:startup_namer/views/setting_view.dart';
@@ -40,8 +41,14 @@ class _NavigationState extends State<Navigation> {
   }
 
   dynamic favItem;
+  List dataUser;
 
   void getData() {
+    HomeAdsViewModel().fetchAds().then((value) {
+      setState(() {
+        dataUser = value;
+      });
+    });
     HomeViewModel().fetchFav().then((value) {
       setState(() {
         favItem = value;
