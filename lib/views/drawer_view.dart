@@ -40,18 +40,20 @@ class _NavigationState extends State<Navigation> {
     super.initState();
   }
 
-  dynamic favItem;
-  List dataUser;
+  List<dynamic> favItem;
+  List<dynamic> adsItem;
+
+  //dynamic favItem;
 
   void getData() {
-    HomeAdsViewModel().fetchAds().then((value) {
-      setState(() {
-        dataUser = value;
-      });
-    });
     HomeViewModel().fetchFav().then((value) {
       setState(() {
         favItem = value;
+      });
+    });
+    HomeAdsViewModel().fetchAds().then((value) {
+      setState(() {
+        adsItem = value;
       });
     });
   }
@@ -59,7 +61,7 @@ class _NavigationState extends State<Navigation> {
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return HomeView(favItem: favItem);
+        return HomeView(favItem: favItem,adsItem: adsItem,);
       case 1:
         return TaskView();
       case 2:

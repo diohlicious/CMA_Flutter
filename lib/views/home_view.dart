@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:startup_namer/view_models/home_ads_viewmodel.dart';
 import 'package:startup_namer/widgets/ads_carousel.dart';
 import 'package:startup_namer/widgets/fav_menu_widget.dart';
 import 'package:startup_namer/widgets/home_header_widget.dart';
@@ -9,8 +8,9 @@ class HomeView extends StatefulWidget {
   static const String routeName = '/home';
 
   final List<dynamic> favItem;
+  final List<dynamic> adsItem;
 
-  const HomeView({Key key, this.favItem}) : super(key: key);
+  const HomeView({Key key,this.favItem,this.adsItem}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -19,21 +19,10 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
-    this.getData();
     super.initState();
   }
 
-  List dataUser;
-  dynamic favItem;
 
-
-  void getData() {
-    HomeAdsViewModel().fetchAds().then((value) {
-      setState(() {
-        dataUser = value;
-      });
-    });
-  }
 
   Widget build(BuildContext context) {
 
@@ -71,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
                     //Text(favItem.toString())
                   ),
                   Container(
-                    child: AdsCarousel(ads: dataUser),
+                    child: AdsCarousel(ads: widget.adsItem),
                   )
                 ]),
           ],        )

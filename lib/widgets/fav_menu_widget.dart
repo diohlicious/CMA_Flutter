@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FavMenuWidget extends StatefulWidget {
+class FavMenuWidget extends StatefulWidget{
   final List<dynamic> favItem;
 
   const FavMenuWidget({Key key, this.favItem}) : super(key: key);
@@ -9,6 +9,7 @@ class FavMenuWidget extends StatefulWidget {
 }
 
 class _FavMenuWidget extends State<FavMenuWidget>{
+
 
   @override
   Widget build(BuildContext context) {

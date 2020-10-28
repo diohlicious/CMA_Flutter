@@ -4,7 +4,7 @@ class FavFirestoreService {
 
   dynamic data;
 
-      Future<dynamic> fetchFav() async {
+  Future<dynamic> fetchFav() async {
 
     final DocumentReference document = Firestore.instance.collection("favMenu").document('favMenu-zFdL2S8c5fir0');
 
@@ -14,4 +14,15 @@ class FavFirestoreService {
 
     return data;
   }
+  /*dynamic data;
+  final databaseReference = Firestore.instance;
+  Future<dynamic> fetchFav() async {
+    databaseReference
+        .collection("favMenu")
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) => data = '${f.data}}');
+    });
+    return data;
+  }*/
 }

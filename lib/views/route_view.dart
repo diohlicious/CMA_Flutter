@@ -1,13 +1,12 @@
-import 'dart:convert';
-import 'dart:async';
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:startup_namer/models/marker_model.dart';
+import 'package:startup_namer/view_models/route_viewmodel.dart';
 import 'package:startup_namer/views/account_detail_view.dart';
 import 'package:startup_namer/widgets/appbar_widget.dart';
 
@@ -20,16 +19,14 @@ class RouteView extends StatefulWidget {
 
 class _RouteViewState extends State<RouteView> {
   List data;
-  final Set<Marker> _markers = {};
 
   @override
   void initState() {
-    this._getData();
-
+    this.getData();
     super.initState();
   }
 
-//==============================================Get Data Json===========================================
+/*//==============================================Get Data Json===========================================
   Future<String> _getData() async {
     var response = await rootBundle.loadString('assets/json/account.json');
 
@@ -38,9 +35,17 @@ class _RouteViewState extends State<RouteView> {
     });
     _getMap();
 
-    print(data[1]["title"]);
-
     return "Success!";
+  }*/
+  void getData() {
+    RouteViewModel().fetchAcc().then((value){
+      setState(() {
+        data = value;
+        for (var i = 0; i < data.length; i++) {
+            _latlon(i);
+        }
+      });
+    });
   }
 
   //==============================================Set Map===========================================
@@ -70,16 +75,6 @@ class _RouteViewState extends State<RouteView> {
         });
       }
     }
-  }
-
-  Future<String> _getMap() async {
-    for (var i = 0; i < data.length; i++) {
-      setState(() {
-        _latlon(i);
-      });
-    }
-
-    return "Success!";
   }
 
   // add the markers to the markersList
@@ -139,7 +134,6 @@ class _RouteViewState extends State<RouteView> {
   }
 
   //-------------------------------------------Recycler View----------------------------------------
-
   Widget _itemBuilder(BuildContext context, int index) {
     return GestureDetector(
         child: Card(
@@ -218,7 +212,9 @@ class _RouteViewState extends State<RouteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget(mainTitle: 'Route',),
+      appBar: AppbarWidget(
+        mainTitle: 'Route',
+      ),
       body: Column(
         children: [
           Expanded(

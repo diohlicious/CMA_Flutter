@@ -133,7 +133,7 @@
         "City": "TANGERANG",
         "Kecamatan": "PERIUK",
         "Kelurahan": "GEBANG RAYA",
-        "LatLong": "-6.1740743,106.5906836",
+        "LatLong": "-6.390044, 105.838162",
         "Priority": "0",
         "Type": "Legal",
         "ZipCode": "15132"
@@ -144,7 +144,7 @@
         "City": "TANGERANG",
         "Kecamatan": "PERIUK",
         "Kelurahan": "GEBANG RAYA",
-        "LatLong": "-6.1740743,106.5906836",
+        "LatLong": "-6.1740355, 106.5906342",
         "Priority": "1",
         "Type": "Residence",
         "ZipCode": "15132"
@@ -155,7 +155,7 @@
         "City": "",
         "Kecamatan": "",
         "Kelurahan": "",
-        "LatLong": "-6.1857355,106.6142342",
+        "LatLong": "-6.1857355, 106.6142342",
         "Priority": "0",
         "Type": "Company",
         "ZipCode": ""
