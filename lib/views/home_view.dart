@@ -22,8 +22,6 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
-
-
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -55,6 +53,7 @@ class _HomeViewState extends State<HomeView> {
                     margin: EdgeInsets.only(top: 10),
                     child: HomeHeaderWidget(),
                   ),
+                  //Text(widget.favItem.toString()),
                   Container(
                     child: FavMenuWidget(favItem: widget.favItem),
                     //Text(favItem.toString())

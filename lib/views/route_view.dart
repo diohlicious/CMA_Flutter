@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -6,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:intl/intl.dart';
 import 'package:startup_namer/models/marker_model.dart';
-import 'package:startup_namer/view_models/route_viewmodel.dart';
+import 'package:startup_namer/services/account_services.dart';
 import 'package:startup_namer/views/account_detail_view.dart';
 import 'package:startup_namer/widgets/appbar_widget.dart';
 
@@ -26,26 +25,16 @@ class _RouteViewState extends State<RouteView> {
     super.initState();
   }
 
-/*//==============================================Get Data Json===========================================
-  Future<String> _getData() async {
-    var response = await rootBundle.loadString('assets/json/account.json');
 
-    this.setState(() {
-      data = json.decode(response);
-    });
-    _getMap();
-
-    return "Success!";
-  }*/
   void getData() {
-    RouteViewModel().fetchAcc().then((value){
-      setState(() {
-        data = value;
-        for (var i = 0; i < data.length; i++) {
-            _latlon(i);
-        }
-      });
-    });
+    AccountServices().fetchAcc().then((value) => {
+          setState(() {
+            data = value;
+            for (var i = 0; i < data.length; i++) {
+              _latlon(i);
+            }
+          })
+        });
   }
 
   //==============================================Set Map===========================================
@@ -95,9 +84,10 @@ class _RouteViewState extends State<RouteView> {
     // update map controller
     setState(() {
       mapController = controller;
+      _addMarkers();
     });
     // add the markers to the map
-    _addMarkers();
+
 
     // create bounding box for view
     LatLngBounds _bounds = FindBoundsCoordinates().getBounds(markersList);
@@ -131,6 +121,12 @@ class _RouteViewState extends State<RouteView> {
     DateTime dateTime = dateFormat.parse(_woDateTime);
     String formattedDate = DateFormat('dd-MM-yyyy').format(dateTime);
     return formattedDate;
+  }
+
+  @override
+  void dispose() {
+    mapController.dispose();
+    super.dispose();
   }
 
   //-------------------------------------------Recycler View----------------------------------------

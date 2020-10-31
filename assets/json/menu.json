@@ -1,41 +1,49 @@
 {
   "data": [
     {
+      "_seq": "1",
       "_title": "Attendance",
       "_onTap": "Routes.attendance",
       "_image": "assets/images/ic_attendance.png"
     },
     {
+      "_seq": "2",
       "_title": "Route",
       "_onTap": "Routes.vroute",
       "_image": "assets/images/ic_route.png"
     },
     {
+      "_seq": "3",
       "_title": "Mitra",
       "_onTap": "Routes.mitra",
       "_image": "assets/images/ic_mitra.png"
     },
     {
+      "_seq": "4",
       "_title": "Add",
       "_onTap": null,
       "_image": "assets/images/ic_add.png"
     },
     {
+      "_seq": "5",
       "_title": "Appointment",
       "_onTap": null,
       "_image": "assets/images/ic_appointment.png"
     },
     {
+      "_seq": "6",
       "_title": "Recovery",
       "_onTap": null,
       "_image": "assets/images/ic_recovery.png"
     },
     {
+      "_seq": "7",
       "_title": "Archive",
       "_onTap": null,
       "_image": "assets/images/ic_archive.png"
     },
     {
+      "_seq": "8",
       "_title": "Find",
       "_onTap": null,
       "_image": "assets/images/ic_find.png"
