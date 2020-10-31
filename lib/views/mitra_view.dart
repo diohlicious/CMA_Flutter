@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:startup_namer/widgets/appbar_widget.dart';
 import 'mitra_list_view.dart';
 import 'mitra_assign_view.dart';
 
@@ -8,9 +9,7 @@ class MitraView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Mitra"),
-      ),
+      appBar: AppbarWidget(mainTitle: 'Mitra'),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(

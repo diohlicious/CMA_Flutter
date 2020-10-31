@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:startup_namer/view_models/home_ads_viewmodel.dart';
+import 'package:startup_namer/view_models/home_viewmodel.dart';
 import 'package:startup_namer/views/dashboard_view.dart';
 import 'package:startup_namer/views/setting_view.dart';
 import 'package:startup_namer/views/task_view.dart';
+import 'package:startup_namer/widgets/appbar_widget.dart';
 
 import 'home_view.dart';
 import 'inbox_view.dart';
@@ -15,11 +19,12 @@ class DrawerItem {
 
 class Navigation extends StatefulWidget {
   final drawerItems = [
-    DrawerItem("Home", Icons.home),
-    DrawerItem("Task", Icons.article_outlined),
-    DrawerItem("Inbox", Icons.inbox),
+    DrawerItem("Home", CupertinoIcons.home),
+    DrawerItem("Task", CupertinoIcons.doc),
+    DrawerItem("Inbox", CupertinoIcons.tray_fill),
     DrawerItem("Dashboard", Icons.dashboard),
-    DrawerItem("Settings", Icons.settings)
+    DrawerItem("Settings", CupertinoIcons.settings),
+    DrawerItem("Log Out", CupertinoIcons.power)
   ];
 
   @override
@@ -29,10 +34,34 @@ class Navigation extends StatefulWidget {
 class _NavigationState extends State<Navigation> {
   int _selectedDrawerIndex = 0;
 
+  @override
+  void initState() {
+    this.getData();
+    super.initState();
+  }
+
+  List<dynamic> favItem;
+  List<dynamic> adsItem;
+
+  //dynamic favItem;
+
+  void getData() {
+    HomeViewModel().fetchFav().then((value) {
+      setState(() {
+        favItem = value;
+      });
+    });
+    HomeAdsViewModel().fetchAds().then((value) {
+      setState(() {
+        adsItem = value;
+      });
+    });
+  }
+
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-        return HomeView();
+        return HomeView(favItem: favItem,adsItem: adsItem,);
       case 1:
         return TaskView();
       case 2:
@@ -42,7 +71,7 @@ class _NavigationState extends State<Navigation> {
       case 4:
         return SettingView();
       default:
-        return Text("Error");
+        return Text('');
     }
   }
 
@@ -65,11 +94,7 @@ class _NavigationState extends State<Navigation> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        // here we display the title corresponding to the fragment
-        // you can instead choose to have a static title
-        title: Text(widget.drawerItems[_selectedDrawerIndex].title),
-      ),
+      appBar: AppbarWidget(mainTitle: widget.drawerItems[_selectedDrawerIndex].title),
       drawer: Drawer(
         child: Column(
           children: <Widget>[

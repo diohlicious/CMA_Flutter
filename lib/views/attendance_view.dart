@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:startup_namer/widgets/appbar_widget.dart';
 
 class AttendanceView extends StatefulWidget {
   static const String routeName = '/attendance';
@@ -92,8 +93,8 @@ class _AttendanceViewState extends State<AttendanceView> {
   }
 
   //------------------------------------------Clock In-------------------------------------------
-  String _clockIn = '--:--:--';
-  String _clockOut = '--:--:--';
+  String _clockIn = '- - : - - : - -';
+  String _clockOut = '- - : - - : - -';
 
   void _setClockIn() {
     setState(() {
@@ -124,9 +125,7 @@ class _AttendanceViewState extends State<AttendanceView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Attendance'),
-      ),
+      appBar: AppbarWidget(mainTitle: 'Attendance'),
       body: SingleChildScrollView (
       child : Row(
         mainAxisSize: MainAxisSize.max,
@@ -173,7 +172,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 18),
+                          margin: EdgeInsets.only(top: 16),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -201,7 +200,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 18),
+                          margin: EdgeInsets.only(top: 12),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -236,7 +235,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold),
                           ),
-                          margin: EdgeInsets.all(9),
+                          margin: EdgeInsets.only(top:8, bottom: 4),
                         ),
                         Center(
                           child: Text(
@@ -254,7 +253,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: 160,
+                              width: 140,
                               height: 100,
                               child: RaisedButton(
                                 child: Column(
@@ -270,11 +269,10 @@ class _AttendanceViewState extends State<AttendanceView> {
                                     ]),
                                 color: Colors.blue,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    side: BorderSide(color: Colors.blue[600])),
+                                    borderRadius: BorderRadius.circular(8.0)),
                                 textColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 40.0),
+                                    vertical: 10.0, horizontal: 10.0),
                                 elevation: 10.0,
                                 splashColor: Colors.white70,
                                 onPressed:
@@ -282,7 +280,7 @@ class _AttendanceViewState extends State<AttendanceView> {
                               ),
                             ),
                             SizedBox(
-                              width: 160,
+                              width: 140,
                               height: 100,
                               child: RaisedButton(
                                 child: Column(
@@ -301,11 +299,10 @@ class _AttendanceViewState extends State<AttendanceView> {
                                     ]),
                                 color: Colors.blue,
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    side: BorderSide(color: Colors.blue[600])),
+                                    borderRadius: BorderRadius.circular(8.0)),
                                 textColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 40.0),
+                                    vertical: 10.0, horizontal: 10.0),
                                 elevation: 10.0,
                                 splashColor: Colors.white70,
                                 onPressed:

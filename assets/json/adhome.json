@@ -1,26 +1,26 @@
 [
-      {
-        "msgDescription": "Setiap Rp 100 juta recovery anda",
-        "msgDescriptionDesc": "Bernilai voucher Alfamart Rp 100 ribu",
-        "msgValiduntil": "Available until",
-        "msgValiduntilDesc": "31 December 2020",
-        "msgTitle": "Dapatkan Voucher",
-        "msgTitleDesc": "Alfamart"
-      },
-      {
-              "msgDescription": "",
-              "msgDescriptionDesc": "Jangan Lewatkan Lelang Tahun Baru",
-              "msgValiduntil": "",
-              "msgValiduntilDesc": "7 Januari 2021",
-              "msgTitle": "8 December 2020",
-              "msgTitleDesc": "Hadiri Outbond Akhir Tahun"
-            },
-       {
-               "msgDescription": "",
-               "msgDescriptionDesc": "Tetap pakai masker dan jaga kondisi selama pandemi",
-               "msgValiduntil": "",
-               "msgValiduntilDesc": "Bersama Kita Bisa",
-               "msgTitle": "Dapatkan Free Masker",
-               "msgTitleDesc": "Hubungi Andi/Makmur"
-             }
+  {
+    "msgTitle": "Recovery Rp.100Jt",
+    "msgDesc": "Bernilai voucher Alfamart Rp.100 ribu",
+    "msgValiduntil": "Available until",
+    "msgValiduntilDesc": "31 December 2020",
+    "msgHighlight": "Dapatkan Voucher",
+    "msgHighlightDesc": "Alfamart"
+  },
+  {
+    "msgTitle": "Lelang 2021",
+    "msgDesc": "Jangan Lewatkan Lelang Tahun Baru Berhadiah Puluhan Juta",
+    "msgValiduntil": "7 Januari 2021",
+    "msgValiduntilDesc": "",
+    "msgHighlight": "8 December 2020",
+    "msgHighlightDesc": "Hadiri Outbond Akhir Tahun"
+  },
+  {
+    "msgTitle": "Patuhi Protokol",
+    "msgDesc": "Tetap pakai masker dan jaga kondisi selama pandemi",
+    "msgValiduntil": "Bersama Kita Bisa",
+    "msgValiduntilDesc": "",
+    "msgHighlight": "Dapatkan Free Masker",
+    "msgHighlightDesc": "Hubungi Andi/Makmur"
+  }
 ]

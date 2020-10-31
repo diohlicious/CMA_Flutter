@@ -33,39 +33,6 @@
         "Priority": "0",
         "Type": "Company",
         "ZipCode": null
-      },
-      {
-        "Address": "jalan, , , , ",
-        "Alamat": "jalan",
-        "City": null,
-        "Kecamatan": null,
-        "Kelurahan": null,
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Residance",
-        "ZipCode": null
-      },
-      {
-        "Address": "oke, , , , ",
-        "Alamat": "oke",
-        "City": null,
-        "Kecamatan": null,
-        "Kelurahan": null,
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Legal",
-        "ZipCode": null
-      },
-      {
-        "Address": "pos, , , , ",
-        "Alamat": "pos",
-        "City": null,
-        "Kecamatan": null,
-        "Kelurahan": null,
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Company",
-        "ZipCode": null
       }
     ],
     "AgreementNo": "5391400026",
@@ -166,7 +133,7 @@
         "City": "TANGERANG",
         "Kecamatan": "PERIUK",
         "Kelurahan": "GEBANG RAYA",
-        "LatLong": "-6.1740743,106.5906836",
+        "LatLong": "-6.390044, 105.838162",
         "Priority": "0",
         "Type": "Legal",
         "ZipCode": "15132"
@@ -177,7 +144,7 @@
         "City": "TANGERANG",
         "Kecamatan": "PERIUK",
         "Kelurahan": "GEBANG RAYA",
-        "LatLong": "-6.1740743,106.5906836",
+        "LatLong": "-6.1740355, 106.5906342",
         "Priority": "1",
         "Type": "Residence",
         "ZipCode": "15132"
@@ -188,21 +155,10 @@
         "City": "",
         "Kecamatan": "",
         "Kelurahan": "",
-        "LatLong": "-6.1857355,106.6142342",
+        "LatLong": "-6.1857355, 106.6142342",
         "Priority": "0",
         "Type": "Company",
         "ZipCode": ""
-      },
-      {
-        "Address": null,
-        "Alamat": "Jl.sunburst bsd",
-        "City": "Tangerang Selatan",
-        "Kecamatan": "bsd",
-        "Kelurahan": "bsd",
-        "LatLong": null,
-        "Priority": "0",
-        "Type": "Residence",
-        "ZipCode": "151514"
       }
     ],
     "AgreementDate": "2016-03-23 00:00:00",
