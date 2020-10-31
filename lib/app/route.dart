@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:startup_namer/views/account_detail_view.dart';
 import 'package:startup_namer/views/attendance_view.dart';
@@ -16,7 +17,20 @@ class Routes {
   static const String mapmap = MainMap.routeName;
   static const String accdtl = AccountDetailView.routeName;
 
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static _router(String route) {
+    switch (route) {
+      case "attendance":
+        return AttendanceView();
+      case "vroute":
+        return RouteView();
+      case "mitra":
+        return MitraView();
+      default:
+        return Text('');
+    }
+  }
+
+  /*static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
         return MaterialPageRoute(builder: (_) => HomeView());
@@ -35,5 +49,8 @@ class Routes {
                       child: Text('No route defined for ${settings.name}')),
                 ));
     }
-  }
+  }*/
+
+  //OpenContainerBuilder
+
 }

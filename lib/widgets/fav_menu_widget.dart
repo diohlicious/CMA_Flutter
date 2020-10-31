@@ -1,5 +1,7 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:startup_namer/app/route.dart';
+import 'package:startup_namer/views/home_view.dart';
 
 class FavMenuWidget extends StatefulWidget{
   final List<dynamic> favItem;
@@ -82,6 +84,34 @@ class _FavMenuWidget extends State<FavMenuWidget>{
 
     return Column(
       children: _favColumn,
+    );
+  }
+}
+/*
+(BuildContext context, VoidCallback _) {
+return _router('attendance')}*/
+
+class _OpenContainerWrapper extends StatelessWidget {
+  const _OpenContainerWrapper({
+    this.closedBuilder,
+    this.transitionType,
+    this.onClosed,
+    this.openBuilder
+  });
+
+  final OpenContainerBuilder closedBuilder;
+  final ContainerTransitionType transitionType;
+  final ClosedCallback<bool> onClosed;
+  final OpenContainerBuilder openBuilder;
+
+  @override
+  Widget build(BuildContext context) {
+    return OpenContainer<bool>(
+      transitionType: transitionType,
+      openBuilder: openBuilder,
+      onClosed: onClosed,
+      tappable: false,
+      closedBuilder: closedBuilder,
     );
   }
 }
