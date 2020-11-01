@@ -1,6 +1,8 @@
-import 'package:animations/animations.dart';
+
 import 'package:flutter/material.dart';
+import 'package:startup_namer/view_models/appointment_viewmodel.dart';
 import 'package:startup_namer/views/account_detail_view.dart';
+import 'package:startup_namer/views/appointment_view.dart';
 import 'package:startup_namer/views/attendance_view.dart';
 import 'package:startup_namer/views/home_view.dart';
 import 'package:startup_namer/views/main_map.dart';
@@ -17,6 +19,12 @@ class Routes {
   static const String mapmap = MainMap.routeName;
   static const String accdtl = AccountDetailView.routeName;
 
+  List dataApointment;
+
+  void getData() {
+    AppointmentViewModel().fetchAppointment().then((value) => dataApointment = value);
+  }
+
   static router(String route) {
     switch (route) {
       case "attendance":
@@ -25,6 +33,8 @@ class Routes {
         return RouteView();
       case "mitra":
         return MitraView();
+      case "appointment":
+        return AppointmentView();
       default:
         return Text('');
     }
