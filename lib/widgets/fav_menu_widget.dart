@@ -1,7 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:startup_namer/app/route.dart';
-import 'package:startup_namer/views/home_view.dart';
+
+import 'menu_card_widget.dart';
+import 'open_container_wrapper.dart';
 
 class FavMenuWidget extends StatefulWidget{
   final List<dynamic> favItem;
@@ -12,6 +14,8 @@ class FavMenuWidget extends StatefulWidget{
 }
 
 class _FavMenuWidget extends State<FavMenuWidget>{
+
+  ContainerTransitionType _transitionType = ContainerTransitionType.fadeThrough;
 
 
   @override
@@ -28,44 +32,25 @@ class _FavMenuWidget extends State<FavMenuWidget>{
     for (var i = 0; i < chunks.length; i++) {
       for (var j = 0; j < chunks[i].length; j++) {
         var d = chunks[i][j];
+
         _favRow.add(
-          Expanded(
-              flex: 1,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(3,10,3,10),
-                child: RaisedButton(
-                  padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 1.0),
-                  splashColor: Colors.white70,
-                  color: Colors.white,
-                  disabledColor: Colors.grey[100],
-                  highlightColor: Colors.green[100],
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.blue, width: 1),
-                      borderRadius: BorderRadius.circular(12.0)),
-                  onPressed: d['_isActive']
-                      ? () => Navigator.pushNamed(context, d['_onTap'])
-                      : null,
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
-                        child: Image(
-                          image: AssetImage(d['_image']), //d['_image']
-                          height: 40,
-                        ),
-                      ),
-                      Container(
-                          padding: EdgeInsets.only(bottom: 5),
-                          child: //Text(d['_title']+' - '+d['_img']+' - '+d['_onTap'],
-                              Text(
-                            d['_title'],
-                            //d._title,
-                            style: TextStyle(color: Colors.blue, fontSize: 12),
-                          )),
-                    ],
-                  ),
-                ),
-              )),
+          OpenContainerWrapper(
+            transitionType: _transitionType,
+            color: Colors.blue,
+            milliseconds: 800,
+            closedBuilder: (BuildContext _, VoidCallback openContainer) {
+              return MenuCard(
+                openContainer: openContainer,
+                isActive: d['_isActive'],
+                image: d['_image'],
+                title: d['_title'],
+              );
+            },
+            //onClosed: _showMarkedAsDoneSnackbar,
+            openBuilder: (BuildContext context, VoidCallback _) {
+              return Routes.router(d['_onTap']);
+            },
+          ),
         );
       }
       for (var j = 0; j < 4 - chunks[i].length; j++) {
@@ -84,34 +69,6 @@ class _FavMenuWidget extends State<FavMenuWidget>{
 
     return Column(
       children: _favColumn,
-    );
-  }
-}
-/*
-(BuildContext context, VoidCallback _) {
-return _router('attendance')}*/
-
-class _OpenContainerWrapper extends StatelessWidget {
-  const _OpenContainerWrapper({
-    this.closedBuilder,
-    this.transitionType,
-    this.onClosed,
-    this.openBuilder
-  });
-
-  final OpenContainerBuilder closedBuilder;
-  final ContainerTransitionType transitionType;
-  final ClosedCallback<bool> onClosed;
-  final OpenContainerBuilder openBuilder;
-
-  @override
-  Widget build(BuildContext context) {
-    return OpenContainer<bool>(
-      transitionType: transitionType,
-      openBuilder: openBuilder,
-      onClosed: onClosed,
-      tappable: false,
-      closedBuilder: closedBuilder,
     );
   }
 }

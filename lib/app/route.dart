@@ -17,7 +17,7 @@ class Routes {
   static const String mapmap = MainMap.routeName;
   static const String accdtl = AccountDetailView.routeName;
 
-  static _router(String route) {
+  static router(String route) {
     switch (route) {
       case "attendance":
         return AttendanceView();
@@ -30,7 +30,7 @@ class Routes {
     }
   }
 
-  /*static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:
         return MaterialPageRoute(builder: (_) => HomeView());
@@ -49,7 +49,7 @@ class Routes {
                       child: Text('No route defined for ${settings.name}')),
                 ));
     }
-  }*/
+  }
 
   //OpenContainerBuilder
 
