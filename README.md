@@ -3,5 +3,5 @@
 - Creator: **Diohlicious**
 - Language: **Dart**
 - SDK: **Flutter**
-- API: studioh.herokuapp.com
+- API: **[studioh.herokuapp.com](studioh.herokuapp.com)**
 - License: **[MIT License](/LICENSE)**
